@@ -27,20 +27,22 @@ class _SelectPaymentScreenState extends State<SelectPaymentScreen> {
     void getExploreItem
         (lang,orderId,userId,paymentMethod,addressId,email)
     async{
+      widget.isLoading= true;
       setState(() {
         widget.isLoading= true;
       });
       print(orderId);
       print(userId);
       print(addressId);
+      print(paymentMethod);
       var response = await Dio().post(
           Utils.CreateOrders_URL,options:
-      Options(headers: {
+      Options(
+          headers:{
         "lang":lang,
         "Accept-Language":lang,
         "user":userId
-      }),
-          data: {
+      }),data: {
             "order_id":orderId,
             "payment_method":paymentMethod,
             "address_id":addressId,
@@ -49,20 +51,18 @@ class _SelectPaymentScreenState extends State<SelectPaymentScreen> {
       print(response.data);
       if(response.data["status"]=="success")
       {
-        widget.isLoading= true;
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context)=>HomeScreen(
-              lang,0,
-              email: email,
-            )
-            ), (route) => false);
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return donDialog(context,email);
+            });
 
-      }else{
+      }
+      else{
         print("failed");
       }
     }
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -127,6 +127,7 @@ class _SelectPaymentScreenState extends State<SelectPaymentScreen> {
                 });
               }
           ),
+
           ListTile(
               title: customText("Cash",
                   color: customTextColor, fontWeight: FontWeight.w600),
@@ -151,4 +152,78 @@ class _SelectPaymentScreenState extends State<SelectPaymentScreen> {
       ),
     );
   }
+}
+Widget donDialog(context,email)
+{
+  return AlertDialog(
+    actions: [
+      SizedBox(height: 60,),
+      Center(
+        child: Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.green
+          ),
+          child: Icon(
+            Icons.check,
+            color: Colors.white,
+            size: 60,
+          ),
+        ),
+      ),
+      Container(
+        padding: const EdgeInsets.all(30),
+        height: MediaQuery.of(context).size.height/2.3,
+        color: Colors.white,
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            customText(
+                getTranslated(context, "Your request has been sent successfully")!,
+                color: customTextColor.withOpacity(.3),
+                fontWeight: FontWeight.bold,
+                size: 25),
+            const SizedBox(
+              height: 100,
+            ),
+            Material(
+              elevation: 5,
+              child: Container(
+                width:
+                MediaQuery.of(context).size.width/1.5,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: HexColor("#087DA9"),
+                    border: Border.all(
+                        color: customTextColor
+                            .withOpacity(.2)),
+                    borderRadius:
+                    BorderRadius.circular(4)),
+                child: MaterialButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(context,
+                        MaterialPageRoute(builder: (context)=>HomeScreen(
+                        Localizations.localeOf(context).languageCode
+                        ,0,
+                          email: email,
+                        )
+                        ), (route) => false);
+                  },
+                  child: customText(
+                      getTranslated(context, "Done")!,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      )
+    ],
+  );
 }

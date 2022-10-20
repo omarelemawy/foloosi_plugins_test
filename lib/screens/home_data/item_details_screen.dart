@@ -85,6 +85,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 return true;
               },
             child: Scaffold(
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               floatingActionButton:
               state is AddToCartLoadingProductDetailsState?
               const Center(
@@ -92,7 +93,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                     color: customColor,
                     size: 40,
                   )):
-              customFloatingActionButton(context,text:
+              customFloatingActionButton(
+                  context,text:
               getTranslated(context,  "Add To Cart",)!,
                   onPress:
                       (){
@@ -112,7 +114,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           .languageCode,
                       value,
                       productDetails!.data!.product!.id,
-                      productDetails.data!.product!.price,
+                        productDetails.data!.product!.offer==null?
+                      productDetails.data!.product!.price:
+                        productDetails.data!.product!.offer,
                       context
                     );
                   }
@@ -138,7 +142,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
                 leading: IconButton(onPressed: (){
                   MySharedPreferences().getUserUserEmail().then((value) {
-                    Navigator.pushAndRemoveUntil(widget.myContext,
+                    Navigator.pushAndRemoveUntil(context,
                         MaterialPageRoute(builder:
                         (context)=>HomeScreen(
                       Localizations.localeOf(context).languageCode,0,
@@ -482,9 +486,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
       ),
     );
   }
-  double getOffer(String offer,String price)
-  {
-    return ((int.parse(price)-int.parse(offer))/
-        int.parse(price)) * 100;
+  String getOffer(int offer, int price) {
+    return (((price - offer) /
+        price) * 100).toStringAsFixed(1);
   }
 }

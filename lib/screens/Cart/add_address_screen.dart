@@ -215,6 +215,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           getTranslated(context, "Emirate / Governorate",)!
                           , fontWeight: FontWeight.w600),
                       const SizedBox(height: 10),
+
                       governoratesModel == null ?
                       Container() :
                       state is GetLoadingGovernoratesAddressState ?
@@ -280,8 +281,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
                         },
                       ),
-                      const SizedBox(height: 15),
 
+                      const SizedBox(height: 15),
 
                       customText(
                           getTranslated(context, "City",)!

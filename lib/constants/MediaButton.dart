@@ -10,8 +10,8 @@ class MediaButton extends StatelessWidget {
   final String? icon;
   final Color? color;
   final Color? textColor;
-  MediaButton(
-      {required this.onPressed,
+  const MediaButton(
+      {super.key, required this.onPressed,
       required this.title,
       this.icon,
       this.color,
@@ -19,26 +19,29 @@ class MediaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
       height: MediaQuery.of(context).size.height / 15,
       width: MediaQuery.of(context).size.width / 1.2,
-      padding: EdgeInsets.all(1),
+      padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: color,
       ),
 
       // ignore: deprecated_member_use
-      child: RaisedButton(
+      child: MaterialButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
+        color: Colors.white,
+        onPressed: onPressed,
+        elevation: 3,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 15, child: Image.asset(icon!)),
-            SizedBox(
+            const SizedBox(
               width: 3,
             ),
             Text(
@@ -51,9 +54,6 @@ class MediaButton extends StatelessWidget {
             ),
           ],
         ),
-        color: Colors.white,
-        onPressed: onPressed,
-        elevation: 3,
       ),
     );
   }
@@ -76,11 +76,13 @@ Widget customButton (
         color: color,
       ),
       // ignore: deprecated_member_use
-      child: RaisedButton(
+      child: MaterialButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
         color: customButtonColor,
+        onPressed: onPressed,
+        elevation: 3,
         child: Text(
           title,
           style: TextStyle(
@@ -88,8 +90,6 @@ Widget customButton (
             color: textColor!,
           ),
         ),
-        onPressed: onPressed,
-        elevation: 3,
       ),
     );
   }

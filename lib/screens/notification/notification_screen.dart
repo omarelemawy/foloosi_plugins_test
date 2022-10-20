@@ -42,7 +42,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             fontWeight: FontWeight.bold
         ),
       ),
-      body: notificationList!.isEmpty?
+      body: notificationList==null?
       const Center(
         child:  SpinKitChasingDots(
           color: customColor,
@@ -51,7 +51,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ):
       Padding(
         padding: const EdgeInsets.all(20.0),
-        child: ListView.builder(itemBuilder: (context,index){
+        child: notificationList.isEmpty?
+            Container(
+              child: Center(
+                child: customText(
+                    getTranslated(context, "No Notification")!,
+                  fontWeight: FontWeight.bold,
+                  size: 20
+                ),
+              ),
+            ):
+        ListView.builder(itemBuilder: (context,index){
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 20),
             child: Row(

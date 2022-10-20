@@ -224,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ,
                           fontWeight: FontWeight.bold),
                       Spacer(),
-                      customText(profileData.data!.phone!,color: HexColor("#9098B1")),
+                      customText(profileData.data!.phone??"",color: HexColor("#9098B1")),
                     ],
                   ),
                   trailing: Icon(Icons.arrow_forward_ios_sharp,color: HexColor("#9098B1"),size: 12,),

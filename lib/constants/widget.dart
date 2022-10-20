@@ -9,6 +9,7 @@ import '../localization/localization_constants.dart';
 import 'color_constans.dart';
 
 Widget connectWithUsWhatsApp(context,phone){
+  print(phone);
   return Container(color:
   Colors.black,
     height: 30,

@@ -255,7 +255,7 @@ class _CartScreenState extends State<CartScreen> {
                           const Spacer(),
                           customText(
                               "AED ${
-                                 int.parse( AddressCubit.get(context).cartModel!.data!.total!)-
+                                  AddressCubit.get(context).cartModel!.data!.total!-
                                       int.parse(AddressCubit.
                                             get(context).cartModel!.data!.discount!)
                               }"
@@ -292,7 +292,7 @@ class _CartScreenState extends State<CartScreen> {
                 OrderData(
                   orderId: cartModel!.data!.id.toString(),
                   orderAmount: "${
-                int.parse( AddressCubit.get(context).cartModel!.data!.total!)-
+                 AddressCubit.get(context).cartModel!.data!.total!-
                 int.parse(AddressCubit.
                 get(context).cartModel!.data!.discount!)}",
                   orderDescription: cartModel.message,
@@ -588,7 +588,7 @@ class _CartItemState extends State<CartItem> {
                       child: Row(
                         children: <Widget>[
                           InkWell(child: const Icon(Icons.remove),
-                            onTap: ()=>int.parse(widget.cartDataModel[widget.index].quantity!)
+                            onTap: ()=>widget.cartDataModel[widget.index].quantity!
                                 ==1?  setState((){
                               print("sdgdsgsdgeds");
 
@@ -602,7 +602,7 @@ class _CartItemState extends State<CartItem> {
                             }):
                             setState((){
                               _itemCount =
-                                  int.parse(widget.cartDataModel[widget.index].quantity!)-1;
+                                  widget.cartDataModel[widget.index].quantity!-1;
                               MySharedPreferences().getUserId().then((value){
                                 AddressCubit.get(context).changeQuantityItem(
                                     Localizations.localeOf(context).languageCode,
@@ -620,14 +620,15 @@ class _CartItemState extends State<CartItem> {
                               decoration: BoxDecoration(
                                 color: HexColor("#EBF0FF"),
                               ),
-                              child: Text(widget.cartDataModel[widget.index].quantity!)),
+                              child: Text(widget.cartDataModel[widget.index]
+                                  .quantity.toString())),
                           const SizedBox(width: 5,),
                           InkWell(
                               child: const Icon(Icons.add,size: 20,),
                               onTap:()=>setState(() {
                                 print("$_itemCount");
                                 _itemCount =
-                                    int.parse(widget.cartDataModel[widget.index].quantity!)+1;
+                                    widget.cartDataModel[widget.index].quantity!+1;
                                 MySharedPreferences().getUserId().then((value){
                                   AddressCubit.get(context).changeQuantityItem(
                                       Localizations.localeOf(context).languageCode,
@@ -649,9 +650,9 @@ class _CartItemState extends State<CartItem> {
       ),
     );
   }
-  double getOffer(String offer, String price) {
-    return ((int.parse(price) - int.parse(offer)) /
-        int.parse(price)) * 100;
+  String getOffer(int offer, int price) {
+    return (((price - offer) /
+        price) * 100).toStringAsFixed(1);
   }
 }
 

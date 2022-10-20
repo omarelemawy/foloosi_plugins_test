@@ -16,16 +16,14 @@ class ExploreCubit extends Cubit<ExploreState> {
       (lang,name,userId)async{
     emit(GetLoadingExploreState());
     var response = await Dio().get(
-        Utils.CategoryProduct_URL,options:
+        Utils.CategoryProduct_URL+"?name=$name",options:
     Options(headers: {
       "lang":lang,
       "Accept-Language":lang,
       "user":userId
-    }),
-      queryParameters: {
-          "name":name
-      }
+    })
     );
+    print(response.data);
     if(response.data["status"]=="success")
     {
       emit(GetSuccessExploreState());

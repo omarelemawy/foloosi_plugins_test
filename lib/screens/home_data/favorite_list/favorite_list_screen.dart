@@ -46,7 +46,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
         centerTitle: false,
         leading: IconButton(onPressed: (){
           MySharedPreferences().getUserUserEmail().then((value) {
-            Navigator.pushAndRemoveUntil(widget.myContext,
+            Navigator.pushAndRemoveUntil(context,
                 MaterialPageRoute(builder:
                     (context)=>HomeScreen(
                   Localizations.localeOf(context).languageCode,0,
@@ -114,6 +114,8 @@ class CardFavorite extends StatefulWidget {
 }
 
 class _CardFavoriteState extends State<CardFavorite> {
+
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -173,7 +175,7 @@ class _CardFavoriteState extends State<CardFavorite> {
             ],
           ),
           const SizedBox(height: 5,),
-           SizedBox(
+          SizedBox(
             width: 90,
             child:  Text(
               widget.list![widget.index!].name!,
@@ -192,8 +194,8 @@ class _CardFavoriteState extends State<CardFavorite> {
             Container() :
             Text(
               widget.list![widget.index!].offer == null ?
-              widget.list![widget.index!].price! :
-              widget.list![widget.index!].offer!,
+              "${widget.list![widget.index!].price!} AED" :
+              "${widget.list![widget.index!].offer!} AED",
               maxLines: 1,
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -210,7 +212,7 @@ class _CardFavoriteState extends State<CardFavorite> {
             children: [
               SizedBox(
                 child: Text(
-                  widget.list![widget.index!].price!,
+                  widget.list![widget.index!].price.toString(),
                   maxLines: 1,
                   style: TextStyle(
                       fontWeight: FontWeight.w200,
@@ -242,9 +244,10 @@ class _CardFavoriteState extends State<CardFavorite> {
       ),
     );
   }
-  double getOffer(String offer, String price) {
-    return ((int.parse(price) - int.parse(offer)) /
-        int.parse(price)) * 100;
+
+  String getOffer(int offer, int price) {
+    return (((price - offer) /
+        price) * 100).toStringAsFixed(1);
   }
 }
 

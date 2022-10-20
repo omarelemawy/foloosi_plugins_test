@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (BuildContext context, state)
         {
           if(state is ErrorRegisterState){
-            _scaffoldKey.currentState!.
+            ScaffoldMessenger.of(context).
             showSnackBar(SnackBar(content: customText(state.error,color: Colors.white),
               backgroundColor: customColor,));
           }
@@ -141,16 +141,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: phoneController,
                               keyboardType: TextInputType.number,
                               style: const TextStyle(color: Colors.black),
-                              validator: (val) {
+                              /* validator: (val) {
                                 if(val!.isEmpty) {
                                   return getTranslated(context,
                                     " Oops! Your Phone Is Not Correct ",);
-                                }/*else if(phoneController.text.length < 11){
+                                }*/
+                              /*else if(phoneController.text.length < 11){
                                   return "The Phone Number Must be 11 Character";
-                                }*/else{
+                                }*/
+                              /*else{
                                   return null;
                                 }
-                              },
+                              },*/
                               onChanged: (val) {
                                 phoneNumber = val;
                               },
@@ -305,8 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context,
                                 myGender);
                           }else{
-                            _scaffoldKey.
-                            currentState!.
+                            ScaffoldMessenger.of(context).
                             showSnackBar(SnackBar(content:
                             customText("Please Check Confirm PassWord",color: Colors.white),
                               backgroundColor: customColor,));

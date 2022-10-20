@@ -1,8 +1,11 @@
 import 'package:badges/badges.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gnon/push_notification.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import '../../constants/color_constans.dart';
@@ -28,12 +31,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   _HomeScreenState(this.initialIndex);
   int? initialIndex;
+ late int? _totalNotification;
+
+
+
+  PushNotification? _notificationInfo;
+
+  void requestAndRegisterNotification() async{}
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final _controller = PersistentTabController(initialIndex:initialIndex!);
     return BlocProvider(
-      create: (context) => HomeCubit()..getSettings(widget.lang),
+      create: (context) => HomeCubit()..getSettings(widget.lang)..
+      SendRegisterToken(widget.lang),
+
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -141,15 +159,22 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 
-class FirstScreen extends StatelessWidget {
+class FirstScreen extends StatefulWidget {
   FirstScreen(this.email, {Key? key}) : super(key: key);
   String? email;
+
+  @override
+  State<FirstScreen> createState() => _FirstScreenState();
+}
+
+class _FirstScreenState extends State<FirstScreen> {
+
 
   @override
   Widget build(BuildContext context) {
     return HomeScreen(Localizations
         .localeOf(context)
         .languageCode,0,
-        email: email == null ? "" : email);
+        email: widget.email == null ? "" : widget.email);
   }
 }

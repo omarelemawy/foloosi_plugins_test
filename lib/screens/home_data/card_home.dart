@@ -65,6 +65,9 @@ class _CardHomeState extends State<CardHome> {
           }
           return InkWell(
             onTap: () {
+              MySharedPreferences().getUserId().then((value) {
+                print(value);
+              });
               Navigator.push(widget.myContext, MaterialPageRoute(builder: (context) =>
                   ItemDetailsScreen(
                     widget.myContext,
@@ -215,7 +218,7 @@ class _CardHomeState extends State<CardHome> {
                       ),
                     ),
                     const SizedBox(width: 8,),
-                    SizedBox(
+                    SizedBox (
                       child: Text(
                         "${getOffer(widget.list![widget.index!].offer!,
                             widget.list![widget.index!].price!)} %"
@@ -239,9 +242,9 @@ class _CardHomeState extends State<CardHome> {
     );
   }
 
-  String getOffer(String offer, String price) {
-    return (((int.parse(price) - int.parse(offer)) /
-        int.parse(price)) * 100).toStringAsFixed(1);
+  String getOffer(int offer, int price) {
+    return (((price - offer) /
+        price) * 100).toStringAsFixed(1);
   }
 }
 

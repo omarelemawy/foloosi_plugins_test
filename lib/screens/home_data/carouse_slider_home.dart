@@ -208,10 +208,12 @@ class _MyProductCarouseSliderState extends State<MyProductCarouseSlider> {
               ),
             ).toList(),
           ),
+
           DotsIndicator(
-            dotsCount: widget.items!.length,
+            dotsCount:  widget.items!.length>8?8:
+            widget.items!.length,
             position: widget.index!,
-            decorator: DotsDecorator(
+            decorator: const DotsDecorator(
               color: Colors.grey, // Inactive color
               activeColor: customColor,
             ),

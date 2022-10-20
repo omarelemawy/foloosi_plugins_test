@@ -37,7 +37,6 @@ class RegisterCubit extends Cubit<RegisterState> {
       MySharedPreferences.saveUserId(response.data["data"]["id"].toString());
       MySharedPreferences.saveUserUserName(response.data["data"]["name"]);
       MySharedPreferences.saveUserUserEmail(response.data["data"]["email"]);
-      MySharedPreferences.saveUserUserPhoneNumber(response.data["data"]["phone"]);
       MySharedPreferences.saveUserImageUrl(response.data["data"]["photo"]);
       MySharedPreferences.saveUserCountryName(response.data["data"]["country"]["name"]);
       MySharedPreferences.saveCountryCode(response.data["data"]["country"]["phone_code"]);

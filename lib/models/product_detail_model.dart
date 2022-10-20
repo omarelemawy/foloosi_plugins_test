@@ -69,9 +69,9 @@ class Product {
   String? name;
   Thumbnail? thumbnail;
   List<Photos>? photos;
-  String? price;
+  var price;
   String? description;
-  String? offer;
+  var offer;
   String? isLiked;
 
 

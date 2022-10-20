@@ -31,12 +31,13 @@ class ProductsModel {
   String? name;
   Thumbnail? thumbnail;
   List<Photo>? photos;
-  String? price;
-  String? offer;
+  var price;
+  var offer;
   String? isLiked;
 
 
-  ProductsModel({this.id, this.name, this.thumbnail, this.photos, this.price, this.offer,this.isLiked});
+  ProductsModel({this.id, this.name, this.thumbnail,
+    this.photos, this.price, this.offer,this.isLiked});
 
   ProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

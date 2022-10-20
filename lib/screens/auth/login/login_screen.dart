@@ -297,7 +297,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         listener: (context,state){
           if(state is ErrorLoginState){
-            _scaffoldKey.currentState!.
+            ScaffoldMessenger.of(context).
             showSnackBar(SnackBar(content: customText(state.error,color: Colors.white),
               backgroundColor: customColor,));
           }

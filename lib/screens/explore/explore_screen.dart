@@ -37,7 +37,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
       getTranslated(context,  "Recently Added ",)!,
     ];
     return BlocProvider(
-      create: (context)=>ExploreCubit()..getExplore(widget.lang,widget.name),
+      create: (context)=>ExploreCubit()..
+      getExplore(widget.lang,widget.name),
       child: BlocConsumer<ExploreCubit,ExploreState>(
         builder: (context,state){
           var productList = ExploreCubit.get(context).productList;

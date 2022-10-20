@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -169,7 +171,9 @@ class HomeCubit extends Cubit<HomeState> {
   Future<SettingsModel?> getSettingsData
       (lang,userId)async{
     print(lang);
+    print(userId);
     emit(GetLoadingProductState());
+    print("response.data");
     var response = await Dio().get(
       Utils.Settings_URL,options:
     Options(headers: {
@@ -189,6 +193,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(GetErrorProductState(response.data["message"]));
     }
   }
+
   void getSettings(lang){
     MySharedPreferences().getUserId().then((value) {
       getSettingsData(lang,value).then((value) {
@@ -198,10 +203,43 @@ class HomeCubit extends Cubit<HomeState> {
 
   }
 
+
+  void SendRegisterToken
+      (lang)async{
+    late final FirebaseMessaging? _messaging=FirebaseMessaging.instance;
+    _messaging!.getToken().then((value) async
+    {
+
+      print("Token:"+value.toString());
+      var response = await Dio().post(
+          Utils.Register_Token,options:
+      Options(headers: {
+        "lang":lang,
+        "Accept-Language":lang
+      },),
+          data: {
+            "token":value,
+          }
+      );
+      print(lang);
+      print("response.data");
+
+      print(response.data);
+      if(response.data["status"]=="success")
+      {
+        print(response.data);
+      }else{
+      }
+    });
+
+  }
+
+
   void addToCart(lang,userId,productId,price,context)async{
     emit(AddToCartLoadingProductDetailsState());
     print(userId);
     print(productId);
+    print(price);
     var response = await Dio().post(
       Utils.AddTocart_URL,options:
     Options(headers: {

@@ -106,7 +106,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
             ),
         listener: (context,state){
           if(state is ForgetPassErrorLoginState){
-            _scaffoldKey.currentState!.
+            ScaffoldMessenger.of(context).
             showSnackBar(SnackBar(content: customText(state.error,color: Colors.white),
               backgroundColor: customColor,));
           }

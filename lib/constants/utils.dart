@@ -53,6 +53,7 @@ class Utils {
 
   static const Notifications_URL = "$BASE_URL/user/notifications";
 
+  static const Register_Token = BASE_URL + "/registerToken";
 
 
   static final Rate_course_URL = Uri.parse(BASE_URL + "/rate_course");
@@ -98,4 +99,7 @@ class Utils {
       Uri.parse(BASE_URL + "/clients/reset_password_after_forget");
   // ignore: non_constant_identifier_names
   static final AboutUS_URL = Uri.parse(BASE_URL + "/setting/about");
+
+
+
 }

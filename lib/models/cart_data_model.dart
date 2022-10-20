@@ -24,8 +24,8 @@ class CartDataModel {
 
 class CartData {
   int? id;
-  String? total;
-  String? discount;
+  var total;
+  var discount;
   int? itemsCount;
   List<ItemsCartData>? items;
 
@@ -61,10 +61,10 @@ class ItemsCartData {
   String? description;
   Thumbnail? thumbnail;
   List<Thumbnail>? photos;
-  String? price;
-  String? offer;
+  var price;
+  var offer;
   String? isLiked;
-  String? quantity;
+  var quantity;
   int? totalItem;
   int? itemsCount;
 

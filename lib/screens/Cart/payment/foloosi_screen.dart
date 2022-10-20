@@ -139,7 +139,7 @@ class _FoloosiScreenState extends State<FoloosiScreen> {
     else {
       WidgetsBinding.instance.addPostFrameCallback(
             (_) =>
-            key.currentState?.showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("Please enter amount"),
               ),

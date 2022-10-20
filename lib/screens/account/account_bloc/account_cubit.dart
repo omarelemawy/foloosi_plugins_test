@@ -97,10 +97,12 @@ class AccountCubit extends Cubit<AccountState> {
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (context)=>ProfileScreen(lang)),
                 (route) => false);
-      }else{
+      }
+      else {
         emit(UpdateProfileErrorAccountState(response.data["message"]));
       }
     }
+
     else {
       var userData;
 

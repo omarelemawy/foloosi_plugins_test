@@ -13,22 +13,20 @@ class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit() : super(NotificationInitial());
   static NotificationCubit get(context)=>BlocProvider.of(context);
 
-  List<Notification>? notificationList=[];
+  List<Notification>? notificationList;
 
   Future<List<Notification>?> getNotif
       (lang,userId)async{
     emit(GetLoadingNotificationState());
     var response = await Dio().get(
-      Utils.Notifications_URL,options:
+      Utils.Notifications_URL+"?page=1",options:
     Options(headers: {
       "lang":lang,
       "Accept-Language":lang,
        "user":userId
-    }),
-      queryParameters: {
-        "page":1
-      }
+    })
     );
+    print(response.data);
     if(response.data["status"]=="success")
     {
       emit(GetSuccessNotificationState());

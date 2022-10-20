@@ -184,6 +184,7 @@ Widget customText(String text,
     overflow: overflow,
     style:
         TextStyle(color: color, fontFamily: "Poppins", fontWeight: fontWeight,
+        letterSpacing: 0,
         fontSize: size,decoration: decoration),
   );
 }
